@@ -10,6 +10,12 @@ include it in the headers of the request. This library enhances the
 [grapqhl-request](https://github.com/prisma-labs/graphql-request) library to
 include the proper signature.
 
+## Installation
+
+```
+npm install graphql-request-appsync-iam
+```
+
 ## Usage
 
 ```ts
