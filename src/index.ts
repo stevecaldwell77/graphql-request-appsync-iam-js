@@ -4,10 +4,13 @@ import fetch, { Request } from 'cross-fetch';
 import { GraphQLClient } from 'graphql-request';
 import { omit } from 'lodash';
 
-type Options = Omit<RequestInit & {
-    awsCredentials?: AWS.Credentials | CredentialsOptions;
-    awsRegion?: string;
-}, 'fetch'>;
+type Options = Omit<
+    RequestInit & {
+        awsCredentials?: AWS.Credentials | CredentialsOptions;
+        awsRegion?: string;
+    },
+    'fetch'
+>;
 
 const getDefaultCredentials = () => {
     const credentials = AWS.config.credentials;
