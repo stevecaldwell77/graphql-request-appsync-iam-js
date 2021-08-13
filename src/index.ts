@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk';
 import type { CredentialsOptions } from 'aws-sdk/lib/credentials';
+import fetch, { Request } from 'cross-fetch';
 import { GraphQLClient } from 'graphql-request';
 import { omit } from 'lodash';
 
