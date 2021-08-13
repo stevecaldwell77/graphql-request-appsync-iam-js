@@ -42,10 +42,16 @@
   "engines": {
     "node": ">=10"
   },
-  "dependencies": {},
+  "dependencies": {
+    "aws-sdk": "^2.967.0",
+    "graphql": "^15.5.1",
+    "graphql-request": "^3.5.0",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/lodash": "^4.14.172",
     "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
@@ -96,7 +102,8 @@
     }
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "tabWidth": 4
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",

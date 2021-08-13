@@ -17,8 +17,15 @@
  * something();
  * ```
  */
-declare module 'module-name' {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const whatever: any;
-  export = whatever;
+
+import type AWS from 'aws-sdk';
+import { CredentialsOptions } from 'aws-sdk/lib/credentials';
+
+declare module 'aws-sdk' {
+  namespace Signers {
+    class V4 {
+      constructor(request: AWS.HttpRequest, serviceName: string);
+      addAuthorization: (credentials: CredentialsOptions) => void;
+    }
+  }
 }
