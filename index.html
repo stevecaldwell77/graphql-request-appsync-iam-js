@@ -67,15 +67,15 @@
 				<a href="#graphql-request-appsync-iam" id="graphql-request-appsync-iam" style="color: inherit; text-decoration: none;">
 					<h1>graphql-request-appsync-iam</h1>
 				</a>
-				<p>Extension of graphql-request that can be used to make calls to an AppSync API using IAM authorization.</p>
+				<p>Extension of <a href="https://github.com/prisma-labs/graphql-request">graphql-request</a> that can be used to make calls to an AppSync API using IAM authorization.</p>
 				<a href="#rationale" id="rationale" style="color: inherit; text-decoration: none;">
 					<h2>Rationale</h2>
 				</a>
-				<p>AWS AppSync provides the ability to authenticate GraphQl request using IAM
-					credentials. However, to do so you need to calculate a request signature and
-					include it in the headers of the request. This library enhances the
-					<a href="https://github.com/prisma-labs/graphql-request">graphql-request</a> library to
-				include the proper signature.</p>
+				<p>AWS AppSync provides the ability to authenticate GraphQl requests using IAM
+					credentials. However, to do so you need to calculate a special signature and
+					include it in the request headers. This library provides a function to give you
+					a <a href="https://github.com/prisma-labs/graphql-request">graphql-request</a> client that
+				will calculate and include the proper signature at request time.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
@@ -107,9 +107,9 @@
 					<h2>Configuration</h2>
 				</a>
 				<p>By default, the library uses the credentials and region specified in the global
-					<code>AWS.config</code> object. You can override via the <code>awsCredentials</code> and <code>awsRegion</code>
-					options. You can also pass in any other options to <code>GraphQLClient</code>&#39;s
-				constructor, except for <code>fetch</code>. Putting that all together:</p>
+					<code>AWS.config</code> object. You can override these settings via the <code>awsCredentials</code>
+					and <code>awsRegion</code> options. You can also pass in any other options to
+				<code>GraphQLClient</code>&#39;s constructor, except for <code>fetch</code>. Putting that all together:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { GraphQLClient } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;graphql-request-appsync-iam&#x27;</span>
 
 <span class="hljs-keyword">const</span> url = <span class="hljs-string">&#x27;https://wvMQY3gdydNyvEJaJisxLymPbb.appsync-api.us-east-1.amazonaws.com/graphql&#x27;</span>;
