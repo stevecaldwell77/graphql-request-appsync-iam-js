@@ -1,14 +1,14 @@
 # graphql-request-appsync-iam
 
-Extension of graphql-request that can be used to make calls to an AppSync API using IAM authorization.
+Extension of [graphql-request](https://github.com/prisma-labs/graphql-request) that can be used to make calls to an AppSync API using IAM authorization.
 
 ## Rationale
 
-AWS AppSync provides the ability to authenticate GraphQl request using IAM
-credentials. However, to do so you need to calculate a request signature and
-include it in the headers of the request. This library enhances the
-[graphql-request](https://github.com/prisma-labs/graphql-request) library to
-include the proper signature.
+AWS AppSync provides the ability to authenticate GraphQl requests using IAM
+credentials. However, to do so you need to calculate a special signature and
+include it in the request headers. This library provides a function to give you
+a [graphql-request](https://github.com/prisma-labs/graphql-request) client that
+will calculate and include the proper signature at request time.
 
 ## Installation
 
