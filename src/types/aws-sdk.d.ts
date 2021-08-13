@@ -22,10 +22,10 @@ import type AWS from 'aws-sdk';
 import { CredentialsOptions } from 'aws-sdk/lib/credentials';
 
 declare module 'aws-sdk' {
-  namespace Signers {
-    class V4 {
-      constructor(request: AWS.HttpRequest, serviceName: string);
-      addAuthorization: (credentials: CredentialsOptions) => void;
+    namespace Signers {
+        class V4 {
+            constructor(request: AWS.HttpRequest, serviceName: string);
+            addAuthorization: (credentials: CredentialsOptions) => void;
+        }
     }
-  }
 }
