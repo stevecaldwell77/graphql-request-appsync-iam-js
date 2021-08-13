@@ -1,6 +1,6 @@
 {
   "name": "graphql-request-appsync-iam",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Extension of graphql-request that can be used to make calls to an AppSync API using IAM authorization.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
