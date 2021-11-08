@@ -42,11 +42,9 @@ const signedFetch =
         const endpoint = new AWS.Endpoint(request.url);
         const awsRequest = new AWS.HttpRequest(endpoint, region);
 
-        for (const header of request.headers) {
-            const key = header[0];
-            const value = header[1];
+        request.headers.forEach((value, key) => {
             awsRequest.headers[key] = value;
-        }
+        });
 
         const body = request.body;
         if (!body) {
