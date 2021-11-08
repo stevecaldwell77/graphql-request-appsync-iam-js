@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.6](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v1.1.5...v1.1.6) (2021-11-08)
+
+
+### Bug Fixes
+
+* refactor copying of request headers (PR [#1](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/issues/1)) to work with TypeScript ([7f7eab6](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/commit/7f7eab6c5f66b712e74daaa18a7adbb26fe21854))
+
 ### [1.1.5](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v1.1.4...v1.1.5) (2021-10-23)
 
 
