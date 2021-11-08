@@ -60,9 +60,12 @@ const signedFetch =
         awsRequest.method = 'POST';
         awsRequest.body = body.toString();
 
-        // TBD: addAuthorization() should do this for us, but I'm seeing
-        // sporadic "'x-amz-security-token' is named as a SignedHeader, but it
-        // does not exist in the HTTP request" errors. Let's see if this helps?
+        // TBD: 2021-10-23: addAuthorization() should do this for us, but I'm
+        // seeing sporadic "'x-amz-security-token' is named as a SignedHeader,
+        // but it does not exist in the HTTP request" errors. Let's see if this
+        // helps?
+        // UPDATE: 2021-11-08 - the errors have gone away, so this seems to have
+        // worked.
         if (credentials.sessionToken) {
             awsRequest.headers['x-amz-security-token'] =
                 credentials.sessionToken;

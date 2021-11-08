@@ -61,3 +61,8 @@ const client = getGraphQLClient(url, {
     awsRegion: 'us-east-1',
     timeout: 60,
 });
+```
+
+## Development
+
+NOTE: this package was bootstrapped with https://github.com/bitjson/typescript-starter
