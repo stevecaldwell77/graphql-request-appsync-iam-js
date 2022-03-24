@@ -47,7 +47,7 @@ and `awsRegion` options. You can also pass in any other options to
 `GraphQLClient`'s constructor, except for `fetch`. Putting that all together:
 
 ```ts
-import { GraphQLClient } from 'graphql-request-appsync-iam'
+import { getGraphQLClient } from 'graphql-request-appsync-iam'
 
 const url = 'https://wvMQY3gdydNyvEJaJisxLymPbb.appsync-api.us-east-1.amazonaws.com/graphql';
 const client = getGraphQLClient(url, {
