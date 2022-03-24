@@ -34,50 +34,60 @@ const getDefaultRegion = () => {
     return region;
 };
 
+export const signRequest = (
+    request: Request,
+    region: string,
+    credentials: AWS.Credentials | CredentialsOptions,
+    date?: Date
+) => {
+    const endpoint = new AWS.Endpoint(request.url);
+    const awsRequest = new AWS.HttpRequest(endpoint, region);
+
+    request.headers.forEach((value, key) => {
+        if (key.toLowerCase() === 'content-type') return;
+        if (key.toLowerCase() === 'host') return;
+        awsRequest.headers[key] = value;
+    });
+
+    const body = request.body;
+    if (!body) {
+        throw new Error(
+            'getGraphQLClient(): Cannot sign request, missing body'
+        );
+    }
+
+    awsRequest.headers.host = endpoint.host;
+    awsRequest.headers['Content-Type'] = 'application/json';
+    awsRequest.method = 'POST';
+    awsRequest.body = body.toString();
+
+    // TBD: 2021-10-23: addAuthorization() should do this for us, but I'm
+    // seeing sporadic "'x-amz-security-token' is named as a SignedHeader,
+    // but it does not exist in the HTTP request" errors. Let's see if this
+    // helps?
+    // UPDATE: 2021-11-08 - the errors have gone away, so this seems to have
+    // worked.
+    if (credentials.sessionToken) {
+        awsRequest.headers['x-amz-security-token'] = credentials.sessionToken;
+    }
+
+    const signer = new AWS.Signers.V4(awsRequest, 'appsync');
+    signer.addAuthorization(credentials, date);
+
+    const signedRequest = new Request(endpoint.href, {
+        method: awsRequest.method,
+        body: request.body,
+        headers: awsRequest.headers,
+    });
+
+    return signedRequest;
+};
+
 const signedFetch =
     (credentials: AWS.Credentials | CredentialsOptions, region: string) =>
     async (input: RequestInfo, init?: RequestInit) => {
         const request = new Request(input, init);
-
-        const endpoint = new AWS.Endpoint(request.url);
-        const awsRequest = new AWS.HttpRequest(endpoint, region);
-
-        request.headers.forEach((value, key) => {
-            awsRequest.headers[key] = value;
-        });
-
-        const body = request.body;
-        if (!body) {
-            throw new Error(
-                'getGraphQLClient(): Cannot sign request, missing body'
-            );
-        }
-
-        awsRequest.headers.host = endpoint.host;
-        awsRequest.headers['Content-Type'] = 'application/json';
-        awsRequest.method = 'POST';
-        awsRequest.body = body.toString();
-
-        // TBD: 2021-10-23: addAuthorization() should do this for us, but I'm
-        // seeing sporadic "'x-amz-security-token' is named as a SignedHeader,
-        // but it does not exist in the HTTP request" errors. Let's see if this
-        // helps?
-        // UPDATE: 2021-11-08 - the errors have gone away, so this seems to have
-        // worked.
-        if (credentials.sessionToken) {
-            awsRequest.headers['x-amz-security-token'] =
-                credentials.sessionToken;
-        }
-
-        const signer = new AWS.Signers.V4(awsRequest, 'appsync');
-        signer.addAuthorization(credentials);
-
-        const signedRequest = new Request(endpoint.href, {
-            method: awsRequest.method,
-            body: request.body,
-            headers: awsRequest.headers,
-        });
-
+        const signedRequest = signRequest(request, region, credentials);
         return fetch(signedRequest);
     };
 

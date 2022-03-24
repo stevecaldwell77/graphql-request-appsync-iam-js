@@ -25,7 +25,10 @@ declare module 'aws-sdk' {
     namespace Signers {
         class V4 {
             constructor(request: AWS.HttpRequest, serviceName: string);
-            addAuthorization: (credentials: CredentialsOptions) => void;
+            addAuthorization: (
+                credentials: CredentialsOptions,
+                date?: Date
+            ) => void;
         }
     }
 }
