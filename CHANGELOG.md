@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v1.1.6...v2.1.0) (2022-03-24)
+
+
+### Features
+
+* BREAKING CHANGE - switch to using AWS SDK v3, drop aws-sdk as peer dependency ([456c9a1](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/commit/456c9a13cae898b6d6d29bbaf8ddcd7f62782db7))
+
 ### [1.1.6](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v1.1.5...v1.1.6) (2021-11-08)
 
 
