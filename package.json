@@ -43,6 +43,14 @@
     "node": ">=10"
   },
   "dependencies": {
+    "@aws-crypto/sha256-js": "^2.0.1",
+    "@aws-sdk/config-resolver": "^3.56.0",
+    "@aws-sdk/credential-provider-node": "^3.56.0",
+    "@aws-sdk/node-config-provider": "^3.56.0",
+    "@aws-sdk/protocol-http": "^3.55.0",
+    "@aws-sdk/signature-v4": "^3.55.0",
+    "@aws-sdk/types": "^3.55.0",
+    "@aws-sdk/url-parser": "^3.55.0",
     "cross-fetch": "^3.1.4",
     "graphql": "^15.5.1",
     "graphql-request": "^3.5.0",
@@ -56,7 +64,6 @@
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "ava": "^3.12.1",
-    "aws-sdk": "^2.983.0",
     "codecov": "^3.5.0",
     "commitizen": "^4.2.4",
     "cspell": "^4.1.0",
@@ -75,9 +82,6 @@
     "ts-node": "^9.0.0",
     "typedoc": "^0.19.0",
     "typescript": "^4.0.2"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.983.0"
   },
   "files": [
     "build/main",

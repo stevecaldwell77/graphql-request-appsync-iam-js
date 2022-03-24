@@ -1,102 +1,125 @@
-import AWS from 'aws-sdk';
-import type { CredentialsOptions } from 'aws-sdk/lib/credentials';
+import { Sha256 } from '@aws-crypto/sha256-js';
+import {
+    NODE_REGION_CONFIG_FILE_OPTIONS,
+    NODE_REGION_CONFIG_OPTIONS,
+} from '@aws-sdk/config-resolver';
+import { defaultProvider as defaultCredentialProvider } from '@aws-sdk/credential-provider-node';
+import { loadConfig } from '@aws-sdk/node-config-provider';
+import { HttpRequest as AwsHttpRequest } from '@aws-sdk/protocol-http';
+import { SignatureV4 } from '@aws-sdk/signature-v4';
+import type { CredentialProvider, Credentials, Provider } from '@aws-sdk/types';
+import { parseUrl } from '@aws-sdk/url-parser';
 import fetch, { Request } from 'cross-fetch';
 import { GraphQLClient } from 'graphql-request';
 import { omit } from 'lodash';
 
 type Options = Omit<
     RequestInit & {
-        awsCredentials?: AWS.Credentials | CredentialsOptions;
+        awsCredentials?: Credentials;
         awsRegion?: string;
     },
     'fetch'
 >;
 
-const getDefaultCredentials = () => {
-    const credentials = AWS.config.credentials;
-    if (!credentials) {
-        throw new Error(
-            'getGraphQLClient(): Failed to get credentials from AWS.config'
-        );
-    }
-
-    return credentials;
+type SignArguments = {
+    regionProvider: Provider<string>;
+    credentialProvider: CredentialProvider;
+    date?: Date;
 };
 
-const getDefaultRegion = () => {
-    const region = AWS.config.region;
-    if (!region) {
-        throw new Error(
-            'getGraphQLClient(): Failed to get region from AWS.config'
-        );
-    }
+const getCredentialProvider = (credentials?: Credentials) =>
+    credentials ? async () => credentials : defaultCredentialProvider();
 
-    return region;
-};
+const getRegionProvider = (region?: string) =>
+    region
+        ? async () => region
+        : loadConfig(
+              NODE_REGION_CONFIG_OPTIONS,
+              NODE_REGION_CONFIG_FILE_OPTIONS
+          );
 
-export const signRequest = (
-    request: Request,
-    region: string,
-    credentials: AWS.Credentials | CredentialsOptions,
-    date?: Date
-) => {
-    const endpoint = new AWS.Endpoint(request.url);
-    const awsRequest = new AWS.HttpRequest(endpoint, region);
-
+const transformHeaders = (request: Request) => {
+    const newHeaders: AwsHttpRequest['headers'] = {};
+    const excludeHeaders = new Set(['host', 'content-type']);
     request.headers.forEach((value, key) => {
-        if (key.toLowerCase() === 'content-type') return;
-        if (key.toLowerCase() === 'host') return;
-        awsRequest.headers[key] = value;
+        if (excludeHeaders.has(key)) return;
+        newHeaders[key] = value;
     });
+    newHeaders['content-type'] = 'application/json';
+    newHeaders.host = new URL(request.url).host;
+    return newHeaders;
+};
 
-    const body = request.body;
-    if (!body) {
-        throw new Error(
-            'getGraphQLClient(): Cannot sign request, missing body'
-        );
-    }
-
-    awsRequest.headers.host = endpoint.host;
-    awsRequest.headers['Content-Type'] = 'application/json';
-    awsRequest.method = 'POST';
-    awsRequest.body = body.toString();
-
-    // TBD: 2021-10-23: addAuthorization() should do this for us, but I'm
-    // seeing sporadic "'x-amz-security-token' is named as a SignedHeader,
-    // but it does not exist in the HTTP request" errors. Let's see if this
-    // helps?
-    // UPDATE: 2021-11-08 - the errors have gone away, so this seems to have
-    // worked.
-    if (credentials.sessionToken) {
-        awsRequest.headers['x-amz-security-token'] = credentials.sessionToken;
-    }
-
-    const signer = new AWS.Signers.V4(awsRequest, 'appsync');
-    signer.addAuthorization(credentials, date);
-
-    const signedRequest = new Request(endpoint.href, {
-        method: awsRequest.method,
+const buildAwsRequest = (request: Request) =>
+    new AwsHttpRequest({
+        ...parseUrl(request.url),
+        method: 'POST',
+        headers: transformHeaders(request),
         body: request.body,
-        headers: awsRequest.headers,
     });
 
+const signAwsRequest = async (
+    request: AwsHttpRequest,
+    signArgs: SignArguments
+) => {
+    const [region, credentials] = await Promise.all([
+        signArgs.regionProvider(),
+        signArgs.credentialProvider(),
+    ]);
+    const signer = new SignatureV4({
+        service: 'appsync',
+        region,
+        sha256: Sha256,
+        credentials,
+    });
+    const signedRequest = await signer.sign(request, {
+        signingDate: signArgs.date,
+    });
+    return signedRequest;
+};
+
+const getSignedHeaders = async (request: Request, signArgs: SignArguments) => {
+    const awsRequest = buildAwsRequest(request);
+    const signedAwsRequest = await signAwsRequest(awsRequest, signArgs);
+    return signedAwsRequest.headers;
+};
+
+export const signRequest = async (
+    request: Request,
+    signArgs: SignArguments
+): Promise<Request> => {
+    const signedHeaders = await getSignedHeaders(request, signArgs);
+    const signedRequest = new Request(request.url, {
+        method: request.method,
+        body: request.body,
+        headers: signedHeaders,
+    });
     return signedRequest;
 };
 
 const signedFetch =
-    (credentials: AWS.Credentials | CredentialsOptions, region: string) =>
+    (
+        credentialProvider: CredentialProvider,
+        regionProvider: Provider<string>
+    ) =>
     async (input: RequestInfo, init?: RequestInit) => {
         const request = new Request(input, init);
-        const signedRequest = signRequest(request, region, credentials);
+        const signedRequest = await signRequest(request, {
+            regionProvider,
+            credentialProvider,
+        });
         return fetch(signedRequest);
     };
 
-export const getGraphQLClient = (url: string, options?: Options) => {
+export const getGraphQLClient = (
+    url: string,
+    options?: Options
+): GraphQLClient => {
     const clientOptions = omit(options, ['awsCredentials', 'awsRegion']);
-    const credentials = options?.awsCredentials || getDefaultCredentials();
-    const region = options?.awsRegion || getDefaultRegion();
+    const credentialProvider = getCredentialProvider(options?.awsCredentials);
+    const regionProvider = getRegionProvider(options?.awsRegion);
     return new GraphQLClient(url, {
         ...clientOptions,
-        fetch: signedFetch(credentials, region),
+        fetch: signedFetch(credentialProvider, regionProvider),
     });
 };

@@ -17,7 +17,7 @@ test('getGraphQLClient()', (t) => {
     t.truthy(client, 'client returned');
 });
 
-test('signRequest()', (t) => {
+test('signRequest()', async (t) => {
     const host =
         'gfaichcrsslcpgcnxgaryagfpw.appsync-api.us-east-1.amazonaws.com'; // spell-checker: disable-line
     const url = `https://${host}/graphql`;
@@ -54,7 +54,11 @@ test('signRequest()', (t) => {
         body,
     });
 
-    const signedRequest = signRequest(request, region, credentials, date);
+    const signedRequest = await signRequest(request, {
+        regionProvider: async () => region,
+        credentialProvider: async () => credentials,
+        date,
+    });
 
     t.is(
         signedRequest.headers.get('content-type'),
@@ -79,7 +83,7 @@ test('signRequest()', (t) => {
     );
     t.is(
         signedRequest.headers.get('authorization'),
-        'AWS4-HMAC-SHA256 Credential=QEBOPDUODEDEDPCRVHWU/20220324/us-east-1/appsync/aws4_request, SignedHeaders=host;x-amz-date;x-amz-security-token;x-my-test, Signature=2c51bf32968553b37f94cba657577ded488b66704a66395cfab2bdd5e9b7dec7', // spell-checker: disable-line
+        'AWS4-HMAC-SHA256 Credential=QEBOPDUODEDEDPCRVHWU/20220324/us-east-1/appsync/aws4_request, SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token;x-my-test, Signature=50409102c1bdff80eb31eb26a0944be4bfcb0afbdd8a6378e4d504117d6adbc8', // spell-checker: disable-line
         'authorization header added'
     );
 
