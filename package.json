@@ -52,7 +52,6 @@
     "@aws-sdk/types": "^3.55.0",
     "@aws-sdk/url-parser": "^3.55.0",
     "cross-fetch": "^3.1.4",
-    "graphql": "^15.5.1",
     "graphql-request": "^3.5.0",
     "lodash": "^4.17.21"
   },
@@ -73,6 +72,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.22.0",
     "gh-pages": "^3.1.0",
+    "graphql": "14 - 16",
     "husky": "^7.0.1",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
@@ -82,6 +82,9 @@
     "ts-node": "^9.0.0",
     "typedoc": "^0.19.0",
     "typescript": "^4.0.2"
+  },
+  "peerDependencies": {
+    "graphql": "14 - 16"
   },
   "files": [
     "build/main",
