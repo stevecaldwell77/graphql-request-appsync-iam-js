@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v2.1.1...v2.2.0) (2022-09-13)
+
+
+### Features
+
+* the guts of request signture building has been extracted to @scaldwell77/aws-signed-fetch ([0eb9d9a](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/commit/0eb9d9a9a47c38fd52a0f9beec4fa46cea3c729c))
+
 ### [2.1.1](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v2.1.1-0...v2.1.1) (2022-07-07)
 
 ### [2.1.1-0](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v2.1.0...v2.1.1-0) (2022-07-07)
