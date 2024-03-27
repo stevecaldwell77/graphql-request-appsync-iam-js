@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: An AWS AppSync GraphQL API example
+Resources:
+  GraphQLAPI:
+    Type: AWS::AppSync::GraphQLApi
+    Properties:
+      Name: ExampleGraphQLAPI
+      AuthenticationType: AWS_IAM
+
+  GraphQLSchema:
+    Type: AWS::AppSync::GraphQLSchema
+    Properties:
+      ApiId: !GetAtt GraphQLAPI.ApiId
+      Definition: |
+        type Query {
+          hello: String
+        }
+        schema {
+          query: Query
+        }
+
+  DataSourceNone:
+    Type: AWS::AppSync::DataSource
+    Properties:
+      ApiId: !GetAtt GraphQLAPI.ApiId
+      Name: NoneDataSource
+      Type: NONE
+
+  Resolver:
+    Type: AWS::AppSync::Resolver
+    Properties:
+      ApiId: !GetAtt GraphQLAPI.ApiId
+      TypeName: Query
+      FieldName: hello
+      DataSourceName: !GetAtt DataSourceNone.Name
+      RequestMappingTemplate: |
+        {
+          "version" : "2017-02-28",
+          "payload" : {}
+        }
+      ResponseMappingTemplate: |
+        $util.toJson("Hello, world!")
+
+Outputs:
+  GraphQLApiUrl:
+    Description: "URL of the GraphQL API"
+    Value: !GetAtt GraphQLAPI.GraphQLUrl

@@ -62,6 +62,9 @@ const client = getGraphQLClient(url, {
     timeout: 60,
 });
 ```
+## Testing
+
+See [HowTo: Live test of getGraphQLClient()](./test-stack/README.md).
 
 ## Development
 
