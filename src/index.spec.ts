@@ -1,6 +1,5 @@
 import test from 'ava';
-
-import { getGraphQLClient } from './';
+import { getGraphQLClient } from './index.js';
 
 test('getGraphQLClient()', (t) => {
     const client = getGraphQLClient('https://foo.com', {
