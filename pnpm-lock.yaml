@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@scaldwell77/aws-signed-fetch':
-    specifier: ^3.0.1
-    version: 3.0.1
+    specifier: ^4.0.0
+    version: 4.0.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.540.0)(@smithy/config-resolver@2.2.0)(@smithy/node-config-provider@2.3.0)(@smithy/protocol-http@3.3.0)(@smithy/signature-v4@2.2.0)
   graphql:
     specifier: 14 - 16
     version: 16.8.1
@@ -653,9 +653,16 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@scaldwell77/aws-signed-fetch@3.0.1:
-    resolution: {integrity: sha512-vjP/W9uOMQP3EHEopeOJn/ootpLbdtglDAO/z1V1nndxo5Ick/+NyJzpQpegpDRCsZuCWxJqmv+HjmnJ7EBWMg==}
+  /@scaldwell77/aws-signed-fetch@4.0.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.540.0)(@smithy/config-resolver@2.2.0)(@smithy/node-config-provider@2.3.0)(@smithy/protocol-http@3.3.0)(@smithy/signature-v4@2.2.0):
+    resolution: {integrity: sha512-9HNeGR8JOFaQauMykYzs6VeXeerebzASLmZ07RN+BAyhI//5/3ANnV6o6uOv/9PBBkme5WEveB/ic8GxvjvvsA==}
     engines: {node: '>=18'}
+    peerDependencies:
+      '@aws-crypto/sha256-js': ^5.2.0
+      '@aws-sdk/credential-provider-node': ^3.540.0
+      '@smithy/config-resolver': ^2.2.0
+      '@smithy/node-config-provider': ^2.3.0
+      '@smithy/protocol-http': ^3.3.0
+      '@smithy/signature-v4': ^2.2.0
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/credential-provider-node': 3.540.0
@@ -663,8 +670,6 @@ packages:
       '@smithy/node-config-provider': 2.3.0
       '@smithy/protocol-http': 3.3.0
       '@smithy/signature-v4': 2.2.0
-    transitivePeerDependencies:
-      - aws-crt
     dev: false
 
   /@sindresorhus/merge-streams@2.3.0:
