@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v4.0.0...v5.0.0) (2026-02-06)
+
+### BREAKING CHANGES
+
+-   Upgraded @scaldwell77/aws-signed-fetch to v5, which updates all @smithy/ peer dependencies to their latest major versions (~4.12.0).
+
 ## [4.0.0](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v3.0.0...v4.0.0) (2025-04-28)
 
 ### BREAKING CHANGES
