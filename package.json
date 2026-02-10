@@ -1,7 +1,7 @@
 {
     "name": "graphql-request-appsync-iam",
     "description": "Extension of graphql-request that can be used to make calls to an AppSync API using IAM authorization.",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "ava": {
         "typescript": {
             "rewritePaths": {
