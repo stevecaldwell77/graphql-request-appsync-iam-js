@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@scaldwell77/aws-signed-fetch':
-        specifier: ^5.0.0
-        version: 5.0.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)
+        specifier: ^5.1.0
+        version: 5.1.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)
       graphql:
         specifier: 14 - 16
         version: 16.8.1
@@ -33,6 +33,9 @@ importers:
       '@aws-sdk/types':
         specifier: ^3.973.0
         version: 3.973.1
+      '@eslint/js':
+        specifier: ^8.57.0
+        version: 8.57.0
       '@smithy/config-resolver':
         specifier: ^4.4.6
         version: 4.4.6
@@ -261,8 +264,8 @@ packages:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
 
-  '@scaldwell77/aws-signed-fetch@5.0.0':
-    resolution: {integrity: sha512-Kos15/VZv/3bIs8GjZ7dyC/bey1hyjcy51JcjEyeCIsVmGGu7ut20RRaUPyzGD1jqv6ScsBLIZ94buFM325xxg==}
+  '@scaldwell77/aws-signed-fetch@5.1.0':
+    resolution: {integrity: sha512-sCuxJBaB+exCEiOXVx5XYt/ZWrUKJloRcWFJxvmplTgO8xmx/rp9DHemFouB9WK3YlOohOzCsJ8LDIwrYqtang==}
     engines: {node: '>=18'}
     peerDependencies:
       '@aws-crypto/sha256-js': ^5.2.0
@@ -1978,7 +1981,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@scaldwell77/aws-signed-fetch@5.0.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)':
+  '@scaldwell77/aws-signed-fetch@5.1.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/credential-provider-node': 3.972.5
