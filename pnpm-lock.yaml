@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@scaldwell77/aws-signed-fetch':
-        specifier: ^5.1.0
-        version: 5.1.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)
+        specifier: ^5.1.1
+        version: 5.1.1(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)
       graphql:
         specifier: 14 - 16
         version: 16.8.1
@@ -264,8 +264,8 @@ packages:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
 
-  '@scaldwell77/aws-signed-fetch@5.1.0':
-    resolution: {integrity: sha512-sCuxJBaB+exCEiOXVx5XYt/ZWrUKJloRcWFJxvmplTgO8xmx/rp9DHemFouB9WK3YlOohOzCsJ8LDIwrYqtang==}
+  '@scaldwell77/aws-signed-fetch@5.1.1':
+    resolution: {integrity: sha512-hkNFnrzBprNhP8UkjkiLyXhTTzK/WKebj1gHt6G7b47Sy68Xf3EfarBOVM8U38eDU7+TBZfBJwbtoTJY4XVp9w==}
     engines: {node: '>=18'}
     peerDependencies:
       '@aws-crypto/sha256-js': ^5.2.0
@@ -1981,7 +1981,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 2.3.1
 
-  '@scaldwell77/aws-signed-fetch@5.1.0(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)':
+  '@scaldwell77/aws-signed-fetch@5.1.1(@aws-crypto/sha256-js@5.2.0)(@aws-sdk/credential-provider-node@3.972.5)(@smithy/config-resolver@4.4.6)(@smithy/node-config-provider@4.3.8)(@smithy/protocol-http@5.3.8)(@smithy/signature-v4@5.3.8)':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@aws-sdk/credential-provider-node': 3.972.5

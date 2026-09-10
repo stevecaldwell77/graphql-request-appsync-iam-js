@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.1](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v5.1.0...v5.1.1) (2026-09-09)
+
+### Bug Fixes
+
+-   Require @scaldwell77/aws-signed-fetch ^5.1.1: the 5.1.0 release of that package was packed from a stale build and did not actually forward `signal`/`redirect`/`credentials`, so the fix described under 5.1.0 below only takes effect from this version. A `prepublishOnly` script now rebuilds and tests before every publish.
+
 ## [5.1.0](https://github.com/stevecaldwell77/graphql-request-appsync-iam-js/compare/v5.0.1...v5.1.0) (2026-09-08)
 
 ### Bug Fixes
